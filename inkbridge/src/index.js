@@ -8,56 +8,46 @@ import cron from 'node-cron';
 
 const OPTIONS_PATH = '/data/options.json';
 
-const DEFAULT_CONFIG = {
-  global: {
-    host: '0.0.0.0',
-    port: 4521,
-    width: 1600,
-    height: 1200,
-    colorscheme: 'BWGBRY',
-    ditherMode: 'FLOYD_STEINBERG',
-    cronSchedule: '* * * * *',
-  },
-  pages: [
-    {
-      slug: 'home',
-      url: 'https://home.wagner.gg',
-    },
-  ],
-};
-
 let CONFIG;
 
 // Key = slug, Value = { buffer: <Buffer>, generatedAt: Date }
 const imageCache = new Map();
 
-function pickInt(value, fallback) {
-  return Number.isInteger(value) && value > 0 ? value : fallback;
-}
-
 function pickString(value, fallback) {
   return typeof value === 'string' && value.trim() !== '' ? value.trim() : fallback;
 }
 
-function parseEnumByKey(enumObject, configuredValue, fallbackKey, optionName) {
-  const candidate = pickString(configuredValue, fallbackKey);
+function requiredInt(value, optionName) {
+  if (!Number.isInteger(value) || value <= 0) {
+    throw new Error(`[config] ${optionName} must be a positive integer.`);
+  }
+  return value;
+}
+
+function requiredString(value, optionName) {
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error(`[config] ${optionName} must be a non-empty string.`);
+  }
+  return value.trim();
+}
+
+function parseRequiredEnumByKey(enumObject, configuredValue, optionName) {
+  const candidate = requiredString(configuredValue, optionName);
   if (candidate in enumObject) {
     return enumObject[candidate];
   }
 
-  console.warn(`[config] Invalid ${optionName} '${candidate}'. Falling back to '${fallbackKey}'.`);
-  return enumObject[fallbackKey];
+  throw new Error(`[config] Invalid ${optionName} '${candidate}'.`);
 }
 
 async function loadConfig() {
-  let rawOptions = {};
-
+  let rawOptions;
   try {
     const fileContent = await fs.readFile(OPTIONS_PATH, 'utf8');
     rawOptions = JSON.parse(fileContent);
   } catch (err) {
     if (err.code === 'ENOENT') {
-      console.warn(`[config] ${OPTIONS_PATH} not found. Using default settings.`);
+      throw new Error(`[config] ${OPTIONS_PATH} not found.`);
     } else if (err instanceof SyntaxError) {
       throw new Error(`[config] Invalid JSON in ${OPTIONS_PATH}: ${err.message}`);
     } else {
@@ -65,28 +55,24 @@ async function loadConfig() {
     }
   }
 
-  const rawGlobal = rawOptions.global && typeof rawOptions.global === 'object' ? rawOptions.global : {};
-  const rawPages =
-    Array.isArray(rawOptions.pages) && rawOptions.pages.length > 0 ? rawOptions.pages : DEFAULT_CONFIG.pages;
+  const rawGlobal = rawOptions?.global;
+  const rawPages = rawOptions?.pages;
+
+  if (!rawGlobal || typeof rawGlobal !== 'object') {
+    throw new Error('[config] Missing required object: global');
+  }
+  if (!Array.isArray(rawPages) || rawPages.length === 0) {
+    throw new Error('[config] pages must be a non-empty array.');
+  }
 
   const global = {
-    host: pickString(rawGlobal.host, DEFAULT_CONFIG.global.host),
-    port: pickInt(rawGlobal.port, DEFAULT_CONFIG.global.port),
-    width: pickInt(rawGlobal.width, DEFAULT_CONFIG.global.width),
-    height: pickInt(rawGlobal.height, DEFAULT_CONFIG.global.height),
-    colorscheme: parseEnumByKey(
-      ColorScheme,
-      rawGlobal.colorscheme,
-      DEFAULT_CONFIG.global.colorscheme,
-      'global.colorscheme'
-    ),
-    ditherMode: parseEnumByKey(
-      DitherMode,
-      rawGlobal.dither_mode,
-      DEFAULT_CONFIG.global.ditherMode,
-      'global.dither_mode'
-    ),
-    cronSchedule: pickString(rawGlobal.cron_schedule, DEFAULT_CONFIG.global.cronSchedule),
+    host: requiredString(rawGlobal.host, 'global.host'),
+    port: requiredInt(rawGlobal.port, 'global.port'),
+    width: requiredInt(rawGlobal.width, 'global.width'),
+    height: requiredInt(rawGlobal.height, 'global.height'),
+    colorscheme: parseRequiredEnumByKey(ColorScheme, rawGlobal.colorscheme, 'global.colorscheme'),
+    ditherMode: parseRequiredEnumByKey(DitherMode, rawGlobal.dither_mode, 'global.dither_mode'),
+    cronSchedule: requiredString(rawGlobal.cron_schedule, 'global.cron_schedule'),
   };
 
   const pages = rawPages
@@ -112,21 +98,11 @@ async function loadConfig() {
         colorscheme:
           rawPage.colorscheme === undefined
             ? undefined
-            : parseEnumByKey(
-                ColorScheme,
-                rawPage.colorscheme,
-                DEFAULT_CONFIG.global.colorscheme,
-                `pages[${index}].colorscheme`
-              ),
+            : parseRequiredEnumByKey(ColorScheme, rawPage.colorscheme, `pages[${index}].colorscheme`),
         ditherMode:
           rawPage.dither_mode === undefined
             ? undefined
-            : parseEnumByKey(
-                DitherMode,
-                rawPage.dither_mode,
-                DEFAULT_CONFIG.global.ditherMode,
-                `pages[${index}].dither_mode`
-              ),
+            : parseRequiredEnumByKey(DitherMode, rawPage.dither_mode, `pages[${index}].dither_mode`),
       };
     })
     .filter(Boolean);
