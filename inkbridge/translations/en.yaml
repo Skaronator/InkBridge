@@ -24,6 +24,21 @@ configuration:
       cron_schedule:
         name: Refresh Schedule
         description: Cron expression that controls how often all configured pages are regenerated.
+  home-assistant:
+    name: Home Assistant API Settings
+    description: Settings for connecting to Home Assistant's API to capture authenticated dashboards and use HA's language for error messages.
+    fields:
+      url:
+        name: Home Assistant URL
+        description: Base URL of your Home Assistant instance, e.g. https://homeassistant.local:8123
+      token:
+        name: Long-Lived Access Token
+        description: A Home Assistant long-lived access token with permissions to read all dashboards you want to capture.
+      language:
+        name: Home Assistant Language
+        description: |
+          The language code (e.g. "en", "de") to use when rendering the home-asssitant dashboard.
+          Available options can be found here: https://github.com/home-assistant/frontend/blob/dev/src/translations/translationMetadata.json
   pages:
     name: Pages
     description: List of pages to capture and expose as BMP endpoints.

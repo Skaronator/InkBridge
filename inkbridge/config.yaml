@@ -11,6 +11,7 @@ ports:
   4521/tcp: 4521
 webui: http://[HOST]:[PORT:4521]
 watchdog: http://[HOST]:[PORT:4521]
+
 options:
   global:
     host: "0.0.0.0"
@@ -20,7 +21,12 @@ options:
     colorscheme: BWGBRY
     dither_mode: FLOYD_STEINBERG
     cron_schedule: "* * * * *"
+  home-assistant:
+    url: ""
+    token: ""
+    language: "en"
   pages: []
+
 schema:
   global:
     host: str
@@ -30,6 +36,10 @@ schema:
     colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)
     dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)
     cron_schedule: str
+  home-assistant:
+    url: url
+    token: str
+    language: str
   pages:
     - slug: str
       url: url

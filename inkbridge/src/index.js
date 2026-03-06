@@ -56,10 +56,14 @@ async function loadConfig() {
   }
 
   const rawGlobal = rawOptions?.global;
+  const rawHomeAssistant = rawOptions?.['home-assistant'];
   const rawPages = rawOptions?.pages;
 
   if (!rawGlobal || typeof rawGlobal !== 'object') {
     throw new Error('[config] Missing required object: global');
+  }
+  if (!rawHomeAssistant || typeof rawHomeAssistant !== 'object') {
+    throw new Error('[config] Missing required object: home-assistant');
   }
   if (!Array.isArray(rawPages) || rawPages.length === 0) {
     throw new Error('[config] pages must be a non-empty array.');
@@ -73,6 +77,12 @@ async function loadConfig() {
     colorscheme: parseRequiredEnumByKey(ColorScheme, rawGlobal.colorscheme, 'global.colorscheme'),
     ditherMode: parseRequiredEnumByKey(DitherMode, rawGlobal.dither_mode, 'global.dither_mode'),
     cronSchedule: requiredString(rawGlobal.cron_schedule, 'global.cron_schedule'),
+  };
+
+  const homeAssistant = {
+    url: requiredString(rawHomeAssistant.url, 'home-assistant.url'),
+    token: requiredString(rawHomeAssistant.token, 'home-assistant.token'),
+    language: requiredString(rawHomeAssistant.language, 'home-assistant.language'),
   };
 
   const pages = rawPages
@@ -111,10 +121,10 @@ async function loadConfig() {
     throw new Error('[config] No valid pages configured. Add at least one pages entry in /data/options.json.');
   }
 
-  return { global, pages };
+  return { global, homeAssistant, pages };
 }
 
-async function captureScreenshot(url, width, height) {
+async function captureScreenshot(slug, url, width, height, homeAssistantConfig) {
   const executionPath = await fs
     .access('/usr/bin/chromium')
     .then(() => '/usr/bin/chromium')
@@ -129,8 +139,43 @@ async function captureScreenshot(url, width, height) {
     viewport: { width, height },
   });
 
+  const pageHostname = new URL(url).hostname;
+  const homeAssistantHostname = new URL(homeAssistantConfig.url).hostname;
+
+  const isHomeAssistant = pageHostname === homeAssistantHostname;
+
+  if (isHomeAssistant) {
+    console.log(`[${slug}] Home Assistant hostnames match. Injecting authentication tokens into localStorage.`);
+
+    const hassTokens = {
+      hassUrl: homeAssistantConfig.url,
+      access_token: homeAssistantConfig.token,
+      token_type: 'Bearer',
+    };
+
+    console.log(hassTokens);
+
+    await context.addInitScript(
+      (hassTokens, selectedLanguage) => {
+        window.localStorage.setItem('hassTokens', hassTokens);
+        window.localStorage.setItem('selectedLanguage', selectedLanguage);
+      },
+      JSON.stringify(hassTokens),
+      JSON.stringify(homeAssistantConfig.language)
+    );
+  }
+
   const page = await context.newPage();
-  await page.goto(url, { waitUntil: 'networkidle' });
+  await page.goto(url, { waitUntil: 'load' });
+
+  if (isHomeAssistant) {
+    await page.waitForSelector('home-assistant, ha-panel-lovelace', {
+      state: 'visible',
+      timeout: 30000,
+    });
+  }
+
+  await page.waitForTimeout(5000);
 
   const buffer = await page.screenshot({ type: 'png' });
   const { data: rawBuffer, info } = await sharp(buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -147,7 +192,13 @@ async function generateImage(pageConfig) {
   const ditherMode = pageConfig.ditherMode || CONFIG.global.ditherMode;
 
   console.log(`[${pageConfig.slug}] Capturing Screenshot from ${pageConfig.url}...`);
-  const { rawBuffer, info } = await captureScreenshot(pageConfig.url, width, height);
+  const { rawBuffer, info } = await captureScreenshot(
+    pageConfig.slug,
+    pageConfig.url,
+    width,
+    height,
+    CONFIG.homeAssistant
+  );
 
   console.log(`[${pageConfig.slug}] Starting dithering...`);
   const dithered = ditherImage(
