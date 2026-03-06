@@ -1,4 +1,50 @@
 configuration:
-  message:
-    name: Message
-    description: The message that will be printed to the log when starting this example add-on.
+  global:
+    name: Global Settings
+    description: Base capture, rendering, and scheduling settings used by all pages unless overridden.
+    fields:
+      host:
+        name: Bind Host
+        description: Network interface the InkBridge web server should listen on.
+      port:
+        name: Bind Port
+        description: TCP port used by the InkBridge web server.
+      width:
+        name: Default Width
+        description: Default screenshot width in pixels for page captures.
+      height:
+        name: Default Height
+        description: Default screenshot height in pixels for page captures.
+      colorscheme:
+        name: Default Color Scheme
+        description: Default ePaper color palette applied during dithering.
+      dither_mode:
+        name: Default Dither Mode
+        description: Default dithering algorithm used to process captured screenshots.
+      cron_schedule:
+        name: Refresh Schedule
+        description: Cron expression that controls how often all configured pages are regenerated.
+  pages:
+    name: Pages
+    description: List of pages to capture and expose as BMP endpoints.
+    fields:
+      slug:
+        name: Endpoint Slug
+        description: URL path segment used for this generated BMP endpoint.
+      url:
+        name: Source URL
+        description: Full page URL to open and capture with Playwright.
+      width:
+        name: Page Width Override
+        description: Optional width override in pixels for this page.
+      height:
+        name: Page Height Override
+        description: Optional height override in pixels for this page.
+      colorscheme:
+        name: Page Color Scheme Override
+        description: Optional color scheme override for this page.
+      dither_mode:
+        name: Page Dither Mode Override
+        description: Optional dithering algorithm override for this page.
+network:
+  4521/tcp: The webserver port exposed by InkBridge to serve generated BMP images.

@@ -10,29 +10,28 @@ arch:
 ports:
   4521/tcp: 4521
 options:
-  message: "custom things"
-  logins:
-    - username: beer
-      password: "123456"
-    - username: cheep
-      password: "654321"
-  random:
-    - haha
-    - hihi
-  link: "http://example.com/"
-  size: 15
-  count: 1.2
+  global:
+    host: "0.0.0.0"
+    port: 4521
+    width: 1600
+    height: 1200
+    colorscheme: BWGBRY
+    dither_mode: FLOYD_STEINBERG
+    cron_schedule: "* * * * *"
+  pages: []
 schema:
-  message: str
-  logins:
-    - username: str
-      password: str
-  random:
-    - "match(^\\w*$)"
-  ssh:
-    private_key: str
-    public_key: str
-  link: url
-  size: "int(5,20)"
-  count: float
-  not_need: "str?"
+  global:
+    host: str
+    port: "int(1,65535)"
+    width: "int(1,10000)"
+    height: "int(1,10000)"
+    colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)
+    dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)
+    cron_schedule: str
+  pages:
+    - slug: str
+      url: url
+      width: "int?"
+      height: "int?"
+      colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)?
+      dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)?
