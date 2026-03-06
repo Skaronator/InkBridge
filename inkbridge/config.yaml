@@ -9,6 +9,8 @@ arch:
   - amd64
 ports:
   4521/tcp: 4521
+webui: http://[HOST]:[PORT:4521]
+watchdog: http://[HOST]:[PORT:4521]
 options:
   global:
     host: "0.0.0.0"
