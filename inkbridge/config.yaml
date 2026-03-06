@@ -21,7 +21,8 @@ options:
     colorscheme: BWGBRY
     dither_mode: FLOYD_STEINBERG
     cron_schedule: "* * * * *"
-  home-assistant:
+    render_delay: 1000
+  home_assistant:
     url: ""
     token: ""
     language: "en"
@@ -36,7 +37,8 @@ schema:
     colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)
     dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)
     cron_schedule: str
-  home-assistant:
+    render_delay: int(0,30000)
+  home_assistant:
     url: url
     token: str
     language: str
@@ -47,3 +49,4 @@ schema:
       height: "int?"
       colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)?
       dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)?
+      render_delay: int(0,30000)?

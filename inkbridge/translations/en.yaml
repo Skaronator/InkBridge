@@ -24,7 +24,10 @@ configuration:
       cron_schedule:
         name: Refresh Schedule
         description: Cron expression that controls how often all configured pages are regenerated.
-  home-assistant:
+      render_delay:
+        name: Render Delay
+        description: Time in milliseconds to wait after page load before capturing the screenshot. Increase this if you notice incomplete renders or "skeleton screens" in the generated Images.
+  home_assistant:
     name: Home Assistant API Settings
     description: Settings for connecting to Home Assistant's API to capture authenticated dashboards and use HA's language for error messages.
     fields:
@@ -61,5 +64,8 @@ configuration:
       dither_mode:
         name: Page Dither Mode Override
         description: Optional dithering algorithm override for this page.
+      render_delay:
+        name: Page Render Delay Override
+        description: Optional render delay override in milliseconds for this page.
 network:
   4521/tcp: The webserver port exposed by InkBridge to serve generated BMP images.

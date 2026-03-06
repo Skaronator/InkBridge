@@ -56,14 +56,14 @@ async function loadConfig() {
   }
 
   const rawGlobal = rawOptions?.global;
-  const rawHomeAssistant = rawOptions?.['home-assistant'];
+  const rawHomeAssistant = rawOptions?.['home_assistant'] ?? rawOptions?.home_assistant;
   const rawPages = rawOptions?.pages;
 
   if (!rawGlobal || typeof rawGlobal !== 'object') {
     throw new Error('[config] Missing required object: global');
   }
   if (!rawHomeAssistant || typeof rawHomeAssistant !== 'object') {
-    throw new Error('[config] Missing required object: home-assistant');
+    throw new Error('[config] Missing required object: home_assistant');
   }
   if (!Array.isArray(rawPages) || rawPages.length === 0) {
     throw new Error('[config] pages must be a non-empty array.');
@@ -77,12 +77,13 @@ async function loadConfig() {
     colorscheme: parseRequiredEnumByKey(ColorScheme, rawGlobal.colorscheme, 'global.colorscheme'),
     ditherMode: parseRequiredEnumByKey(DitherMode, rawGlobal.dither_mode, 'global.dither_mode'),
     cronSchedule: requiredString(rawGlobal.cron_schedule, 'global.cron_schedule'),
+    renderDelay: requiredInt(rawGlobal.render_delay, 'global.render_delay'),
   };
 
   const homeAssistant = {
-    url: requiredString(rawHomeAssistant.url, 'home-assistant.url'),
-    token: requiredString(rawHomeAssistant.token, 'home-assistant.token'),
-    language: requiredString(rawHomeAssistant.language, 'home-assistant.language'),
+    url: requiredString(rawHomeAssistant.url, 'home_assistant.url'),
+    token: requiredString(rawHomeAssistant.token, 'home_assistant.token'),
+    language: requiredString(rawHomeAssistant.language, 'home_assistant.language'),
   };
 
   const pages = rawPages
@@ -105,6 +106,8 @@ async function loadConfig() {
         url,
         width: Number.isInteger(rawPage.width) && rawPage.width > 0 ? rawPage.width : undefined,
         height: Number.isInteger(rawPage.height) && rawPage.height > 0 ? rawPage.height : undefined,
+        renderDelay:
+          Number.isInteger(rawPage.render_delay) && rawPage.render_delay >= 0 ? rawPage.render_delay : undefined,
         colorscheme:
           rawPage.colorscheme === undefined
             ? undefined
@@ -124,7 +127,7 @@ async function loadConfig() {
   return { global, homeAssistant, pages };
 }
 
-async function captureScreenshot(slug, url, width, height, homeAssistantConfig) {
+async function captureScreenshot(slug, url, width, height, renderDelay, homeAssistantConfig) {
   const executionPath = await fs
     .access('/usr/bin/chromium')
     .then(() => '/usr/bin/chromium')
@@ -153,8 +156,6 @@ async function captureScreenshot(slug, url, width, height, homeAssistantConfig) 
       token_type: 'Bearer',
     };
 
-    console.log(hassTokens);
-
     await context.addInitScript(
       (hassTokens, selectedLanguage) => {
         window.localStorage.setItem('hassTokens', hassTokens);
@@ -171,11 +172,13 @@ async function captureScreenshot(slug, url, width, height, homeAssistantConfig) 
   if (isHomeAssistant) {
     await page.waitForSelector('home-assistant, ha-panel-lovelace', {
       state: 'visible',
-      timeout: 30000,
+      timeout: 15000,
     });
   }
 
-  await page.waitForTimeout(5000);
+  if (renderDelay > 0) {
+    await page.waitForTimeout(renderDelay);
+  }
 
   const buffer = await page.screenshot({ type: 'png' });
   const { data: rawBuffer, info } = await sharp(buffer).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -188,6 +191,7 @@ async function generateImage(pageConfig) {
   // Merge global config with page-specific overrides.
   const width = pageConfig.width || CONFIG.global.width;
   const height = pageConfig.height || CONFIG.global.height;
+  const renderDelay = pageConfig.renderDelay ?? CONFIG.global.renderDelay;
   const colorscheme = pageConfig.colorscheme || CONFIG.global.colorscheme;
   const ditherMode = pageConfig.ditherMode || CONFIG.global.ditherMode;
 
@@ -197,6 +201,7 @@ async function generateImage(pageConfig) {
     pageConfig.url,
     width,
     height,
+    renderDelay,
     CONFIG.homeAssistant
   );
 
