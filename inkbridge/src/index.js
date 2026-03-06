@@ -140,6 +140,7 @@ async function captureScreenshot(slug, url, width, height, renderDelay, homeAssi
 
   const context = await browser.newContext({
     viewport: { width, height },
+    deviceScaleFactor: 1.5,
   });
 
   const pageHostname = new URL(url).hostname;
@@ -189,11 +190,11 @@ async function captureScreenshot(slug, url, width, height, renderDelay, homeAssi
 
 async function generateImage(pageConfig) {
   // Merge global config with page-specific overrides.
-  const width = pageConfig.width || CONFIG.global.width;
-  const height = pageConfig.height || CONFIG.global.height;
+  const width = pageConfig.width ?? CONFIG.global.width;
+  const height = pageConfig.height ?? CONFIG.global.height;
   const renderDelay = pageConfig.renderDelay ?? CONFIG.global.renderDelay;
-  const colorscheme = pageConfig.colorscheme || CONFIG.global.colorscheme;
-  const ditherMode = pageConfig.ditherMode || CONFIG.global.ditherMode;
+  const colorscheme = pageConfig.colorscheme ?? CONFIG.global.colorscheme;
+  const ditherMode = pageConfig.ditherMode ?? CONFIG.global.ditherMode;
 
   console.log(`[${pageConfig.slug}] Capturing Screenshot from ${pageConfig.url}...`);
   const { rawBuffer, info } = await captureScreenshot(
@@ -205,7 +206,9 @@ async function generateImage(pageConfig) {
     CONFIG.homeAssistant
   );
 
-  console.log(`[${pageConfig.slug}] Starting dithering...`);
+  console.log(
+    `[${pageConfig.slug}] Starting dithering with colorscheme ${colorscheme} and dither mode ${ditherMode}...`
+  );
   const dithered = ditherImage(
     {
       width: info.width,
