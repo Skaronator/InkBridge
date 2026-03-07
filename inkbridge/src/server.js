@@ -14,7 +14,7 @@ function formatTimestamp(date) {
 function createServer(config, imageCache) {
   const app = express();
 
-  app.get('/', (req, res) => {
+  app.get('/', (_, res) => {
     const availableEndpoints = config.pages
       .map((page) => {
         const cacheEntry = imageCache.get(page.slug);
@@ -30,7 +30,7 @@ function createServer(config, imageCache) {
   });
 
   config.pages.forEach((page) => {
-    app.get(`/${page.slug}`, (req, res) => {
+    app.get(`/${page.slug}`, (_, res) => {
       const cacheEntry = imageCache.get(page.slug);
       if (cacheEntry) {
         res.set('Content-Type', 'image/bmp');
