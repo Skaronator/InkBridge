@@ -78,6 +78,7 @@ async function loadConfig() {
     ditherMode: parseRequiredEnumByKey(DitherMode, rawGlobal.dither_mode, 'global.dither_mode'),
     cronSchedule: requiredString(rawGlobal.cron_schedule, 'global.cron_schedule'),
     renderDelay: requiredInt(rawGlobal.render_delay, 'global.render_delay'),
+    zoom: requiredInt(rawGlobal.zoom, 'global.zoom'),
   };
 
   const homeAssistant = {
@@ -108,6 +109,10 @@ async function loadConfig() {
         height: Number.isInteger(rawPage.height) && rawPage.height > 0 ? rawPage.height : undefined,
         renderDelay:
           Number.isInteger(rawPage.render_delay) && rawPage.render_delay >= 0 ? rawPage.render_delay : undefined,
+        zoom:
+          typeof rawPage.zoom === 'number' && Number.isFinite(rawPage.zoom) && rawPage.zoom > 0
+            ? rawPage.zoom
+            : undefined,
         colorscheme:
           rawPage.colorscheme === undefined
             ? undefined
@@ -127,7 +132,7 @@ async function loadConfig() {
   return { global, homeAssistant, pages };
 }
 
-async function captureScreenshot(slug, url, width, height, renderDelay, homeAssistantConfig) {
+async function captureScreenshot(slug, url, width, height, renderDelay, zoom, homeAssistantConfig) {
   const executionPath = await fs
     .access('/usr/bin/chromium')
     .then(() => '/usr/bin/chromium')
@@ -140,7 +145,6 @@ async function captureScreenshot(slug, url, width, height, renderDelay, homeAssi
 
   const context = await browser.newContext({
     viewport: { width, height },
-    deviceScaleFactor: 1.5,
   });
 
   const pageHostname = new URL(url).hostname;
@@ -177,6 +181,10 @@ async function captureScreenshot(slug, url, width, height, renderDelay, homeAssi
     });
   }
 
+  await page.evaluate((pageZoom) => {
+    document.body.style.zoom = String(pageZoom);
+  }, zoom);
+
   if (renderDelay > 0) {
     await page.waitForTimeout(renderDelay);
   }
@@ -193,6 +201,7 @@ async function generateImage(pageConfig) {
   const width = pageConfig.width ?? CONFIG.global.width;
   const height = pageConfig.height ?? CONFIG.global.height;
   const renderDelay = pageConfig.renderDelay ?? CONFIG.global.renderDelay;
+  const zoom = pageConfig.zoom ?? CONFIG.global.zoom;
   const colorscheme = pageConfig.colorscheme ?? CONFIG.global.colorscheme;
   const ditherMode = pageConfig.ditherMode ?? CONFIG.global.ditherMode;
 
@@ -203,6 +212,7 @@ async function generateImage(pageConfig) {
     width,
     height,
     renderDelay,
+    zoom,
     CONFIG.homeAssistant
   );
 

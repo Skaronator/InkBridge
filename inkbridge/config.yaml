@@ -20,6 +20,7 @@ options:
     height: 1200
     colorscheme: BWGBRY
     dither_mode: FLOYD_STEINBERG
+    zoom: 1
     cron_schedule: "* * * * *"
     render_delay: 1000
   home_assistant:
@@ -36,6 +37,7 @@ schema:
     height: "int(1,10000)"
     colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)
     dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)
+    zoom: float(0.1,10.0)
     cron_schedule: str
     render_delay: int(0,30000)
   home_assistant:
@@ -49,4 +51,5 @@ schema:
       height: "int?"
       colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)?
       dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)?
+      zoom: float(0.1,10.0)?
       render_delay: int(0,30000)?
