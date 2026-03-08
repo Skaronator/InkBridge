@@ -23,13 +23,6 @@ type errorKernel struct {
 	offsets []kernelOffset
 }
 
-var bayer4x4 = [4][4]float64{
-	{-0.5, 0.0, -0.375, 0.125},
-	{0.25, -0.25, 0.375, -0.125},
-	{-0.3125, 0.1875, -0.4375, 0.0625},
-	{0.4375, -0.0625, 0.3125, -0.1875},
-}
-
 var kernels = map[DitherMode]errorKernel{
 	DitherModeFloydSteinberg: {
 		divisor: 16,
@@ -42,10 +35,6 @@ var kernels = map[DitherMode]errorKernel{
 	DitherModeSierra: {
 		divisor: 32,
 		offsets: []kernelOffset{{1, 0, 5}, {2, 0, 3}, {-2, 1, 2}, {-1, 1, 4}, {0, 1, 5}, {1, 1, 4}, {2, 1, 2}, {-1, 2, 2}, {0, 2, 3}, {1, 2, 2}},
-	},
-	DitherModeSierraLite: {
-		divisor: 4,
-		offsets: []kernelOffset{{1, 0, 2}, {-1, 1, 1}, {0, 1, 1}},
 	},
 	DitherModeAtkinson: {
 		divisor: 8,
@@ -104,7 +93,7 @@ func IsSupportedColorScheme(s ColorScheme) bool {
 }
 
 func IsSupportedDitherMode(mode DitherMode) bool {
-	if mode == DitherModeNone || mode == DitherModeOrdered {
+	if mode == DitherModeNone {
 		return true
 	}
 	_, ok := kernels[mode]
@@ -122,8 +111,6 @@ func DitherImage(src image.Image, scheme ColorScheme, mode DitherMode) *image.Pa
 	switch mode {
 	case DitherModeNone:
 		directMap(src, out)
-	case DitherModeOrdered:
-		orderedDither(src, out)
 	default:
 		kernel, ok := kernels[mode]
 		if !ok {
@@ -140,21 +127,6 @@ func directMap(src image.Image, out *image.Paletted) {
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			r, g, b := toLinearRGB(src.At(x, y))
-			idx := closestPaletteIndex(r, g, b, out.Palette)
-			out.SetColorIndex(x, y, uint8(idx))
-		}
-	}
-}
-
-func orderedDither(src image.Image, out *image.Paletted) {
-	bounds := src.Bounds()
-	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-		for x := bounds.Min.X; x < bounds.Max.X; x++ {
-			r, g, b := toLinearRGB(src.At(x, y))
-			offset := bayer4x4[y%4][x%4]
-			r = clamp01(r + offset)
-			g = clamp01(g + offset)
-			b = clamp01(b + offset)
 			idx := closestPaletteIndex(r, g, b, out.Palette)
 			out.SetColorIndex(x, y, uint8(idx))
 		}

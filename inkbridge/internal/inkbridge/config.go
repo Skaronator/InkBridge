@@ -38,12 +38,10 @@ const (
 const (
 	DitherModeNone              DitherMode = "NONE"
 	DitherModeBurkes            DitherMode = "BURKES"
-	DitherModeOrdered           DitherMode = "ORDERED"
 	DitherModeFloydSteinberg    DitherMode = "FLOYD_STEINBERG"
 	DitherModeAtkinson          DitherMode = "ATKINSON"
 	DitherModeStucki            DitherMode = "STUCKI"
 	DitherModeSierra            DitherMode = "SIERRA"
-	DitherModeSierraLite        DitherMode = "SIERRA_LITE"
 	DitherModeJarvisJudiceNinke DitherMode = "JARVIS_JUDICE_NINKE"
 )
 
@@ -66,14 +64,15 @@ type HomeAssistantConfig struct {
 }
 
 type PageConfig struct {
-	Slug        string       `json:"slug" yaml:"slug" validate:"required"`
-	URL         string       `json:"url" yaml:"url" validate:"required,url"`
-	Width       *int         `json:"width,omitempty" yaml:"width,omitempty" validate:"omitempty,min=1,max=10000"`
-	Height      *int         `json:"height,omitempty" yaml:"height,omitempty" validate:"omitempty,min=1,max=10000"`
-	ColorScheme *ColorScheme `json:"colorscheme,omitempty" yaml:"colorscheme,omitempty" validate:"omitempty,colorscheme"`
-	DitherMode  *DitherMode  `json:"dither_mode,omitempty" yaml:"dither_mode,omitempty" validate:"omitempty,dithermode"`
-	RenderDelay *int         `json:"render_delay,omitempty" yaml:"render_delay,omitempty" validate:"omitempty,min=0,max=30000"`
-	Zoom        *float64     `json:"zoom,omitempty" yaml:"zoom,omitempty" validate:"omitempty,gt=0,lte=10"`
+	Slug         string       `json:"slug" yaml:"slug" validate:"required"`
+	URL          string       `json:"url" yaml:"url" validate:"required,url"`
+	Width        *int         `json:"width,omitempty" yaml:"width,omitempty" validate:"omitempty,min=1,max=10000"`
+	Height       *int         `json:"height,omitempty" yaml:"height,omitempty" validate:"omitempty,min=1,max=10000"`
+	ColorScheme  *ColorScheme `json:"colorscheme,omitempty" yaml:"colorscheme,omitempty" validate:"omitempty,colorscheme"`
+	DitherMode   *DitherMode  `json:"dither_mode,omitempty" yaml:"dither_mode,omitempty" validate:"omitempty,dithermode"`
+	CronSchedule *string      `json:"cron_schedule,omitempty" yaml:"cron_schedule,omitempty" validate:"omitempty,cron"`
+	RenderDelay  *int         `json:"render_delay,omitempty" yaml:"render_delay,omitempty" validate:"omitempty,min=0,max=30000"`
+	Zoom         *float64     `json:"zoom,omitempty" yaml:"zoom,omitempty" validate:"omitempty,gt=0,lte=10"`
 }
 
 type AppConfig struct {
@@ -144,6 +143,10 @@ func normalizeConfig(cfg *AppConfig) {
 	for i := range cfg.Pages {
 		cfg.Pages[i].Slug = strings.TrimSpace(cfg.Pages[i].Slug)
 		cfg.Pages[i].URL = strings.TrimSpace(cfg.Pages[i].URL)
+		if cfg.Pages[i].CronSchedule != nil {
+			trimmed := strings.TrimSpace(*cfg.Pages[i].CronSchedule)
+			cfg.Pages[i].CronSchedule = &trimmed
+		}
 	}
 }
 

@@ -36,7 +36,7 @@ schema:
     width: "int(1,10000)"
     height: "int(1,10000)"
     colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4|GRAYSCALE_8|GRAYSCALE_16)
-    dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)
+    dither_mode: list(NONE|BURKES|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|JARVIS_JUDICE_NINKE)
     zoom: float(0.1,10.0)
     cron_schedule: str
     render_delay: int(0,30000)
@@ -50,6 +50,7 @@ schema:
       width: "int?"
       height: "int?"
       colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4|GRAYSCALE_8|GRAYSCALE_16)?
-      dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)?
+      dither_mode: list(NONE|BURKES|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|JARVIS_JUDICE_NINKE)?
+      cron_schedule: str?
       zoom: float(0.1,10.0)?
       render_delay: int(0,30000)?

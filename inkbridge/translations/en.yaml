@@ -23,7 +23,7 @@ configuration:
         description: Default dithering algorithm used to process captured screenshots.
       cron_schedule:
         name: Refresh Schedule
-        description: Cron expression that controls how often all configured pages are regenerated.
+        description: Default cron expression used to regenerate pages that do not define a page-level refresh schedule.
       render_delay:
         name: Render Delay
         description: Time in milliseconds to wait after page load before capturing the screenshot. Increase this if you notice incomplete renders or "skeleton screens" in the generated Images.
@@ -64,6 +64,9 @@ configuration:
       dither_mode:
         name: Page Dither Mode Override
         description: Optional dithering algorithm override for this page.
+      cron_schedule:
+        name: Page Refresh Schedule Override
+        description: Optional cron expression override for this page. If omitted, the global refresh schedule is used.
       render_delay:
         name: Page Render Delay Override
         description: Optional render delay override in milliseconds for this page.

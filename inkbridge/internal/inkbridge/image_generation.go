@@ -158,6 +158,15 @@ func (s *Service) UpdateAllImages() {
 	wg.Wait()
 }
 
+func (s *Service) UpdatePageImage(pageCfg PageConfig) {
+	s.updateMu.Lock()
+	defer s.updateMu.Unlock()
+
+	if err := s.generateImage(pageCfg); err != nil {
+		log.Printf("[%s] Failed to generate image: %v", pageCfg.Slug, err)
+	}
+}
+
 func (s *Service) getImage(slug string) (imageCacheEntry, bool) {
 	s.cacheMu.RLock()
 	entry, ok := s.cache[slug]

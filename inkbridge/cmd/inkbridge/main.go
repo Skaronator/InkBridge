@@ -11,9 +11,16 @@ import (
 	"inkbridge/internal/inkbridge"
 )
 
-func runUpdateJob(svc *inkbridge.Service) {
-	log.Println("Cron: Regenerating images...")
-	svc.UpdateAllImages()
+func pageSchedule(pageCfg inkbridge.PageConfig, fallback string) string {
+	if pageCfg.CronSchedule != nil {
+		return *pageCfg.CronSchedule
+	}
+	return fallback
+}
+
+func runPageUpdateJob(svc *inkbridge.Service, pageCfg inkbridge.PageConfig, schedule string) {
+	log.Printf("Cron [%s]: Regenerating image (schedule: %s)...", pageCfg.Slug, schedule)
+	svc.UpdatePageImage(pageCfg)
 }
 
 func start() error {
@@ -30,11 +37,15 @@ func start() error {
 	svc.UpdateAllImages()
 
 	scheduler := cron.New()
-	_, err = scheduler.AddFunc(cfg.Global.CronSchedule, func() {
-		runUpdateJob(svc)
-	})
-	if err != nil {
-		return err
+	for _, pageCfg := range cfg.Pages {
+		pageCfg := pageCfg
+		schedule := pageSchedule(pageCfg, cfg.Global.CronSchedule)
+		_, err = scheduler.AddFunc(schedule, func() {
+			runPageUpdateJob(svc, pageCfg, schedule)
+		})
+		if err != nil {
+			return err
+		}
 	}
 	scheduler.Start()
 	defer scheduler.Stop()
