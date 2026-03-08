@@ -1,0 +1,6 @@
+apscheduler==3.11.2
+epaper-dithering==0.6.4
+flask==3.1.3
+pillow==12.1.0
+playwright==1.58.0
+waitress==3.0.2
