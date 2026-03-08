@@ -35,7 +35,7 @@ schema:
     port: "int(1,65535)"
     width: "int(1,10000)"
     height: "int(1,10000)"
-    colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)
+    colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4|GRAYSCALE_8|GRAYSCALE_16)
     dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)
     zoom: float(0.1,10.0)
     cron_schedule: str
@@ -49,7 +49,7 @@ schema:
       url: url
       width: "int?"
       height: "int?"
-      colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4)?
+      colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4|GRAYSCALE_8|GRAYSCALE_16)?
       dither_mode: list(NONE|BURKES|ORDERED|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|SIERRA_LITE|JARVIS_JUDICE_NINKE)?
       zoom: float(0.1,10.0)?
       render_delay: int(0,30000)?

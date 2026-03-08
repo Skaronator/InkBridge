@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"strings"
 
-	yaml "github.com/goccy/go-yaml"
 	"github.com/go-playground/validator/v10"
+	yaml "github.com/goccy/go-yaml"
 	"github.com/robfig/cron/v3"
 )
 
@@ -25,12 +25,14 @@ type ColorScheme string
 type DitherMode string
 
 const (
-	ColorSchemeMono       ColorScheme = "MONO"
-	ColorSchemeBWR        ColorScheme = "BWR"
-	ColorSchemeBWY        ColorScheme = "BWY"
-	ColorSchemeBWRY       ColorScheme = "BWRY"
-	ColorSchemeBWGBRY     ColorScheme = "BWGBRY"
-	ColorSchemeGrayscale4 ColorScheme = "GRAYSCALE_4"
+	ColorSchemeMono        ColorScheme = "MONO"
+	ColorSchemeBWR         ColorScheme = "BWR"
+	ColorSchemeBWY         ColorScheme = "BWY"
+	ColorSchemeBWRY        ColorScheme = "BWRY"
+	ColorSchemeBWGBRY      ColorScheme = "BWGBRY"
+	ColorSchemeGrayscale4  ColorScheme = "GRAYSCALE_4"
+	ColorSchemeGrayscale8  ColorScheme = "GRAYSCALE_8"
+	ColorSchemeGrayscale16 ColorScheme = "GRAYSCALE_16"
 )
 
 const (

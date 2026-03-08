@@ -74,10 +74,28 @@ func paletteForScheme(s ColorScheme) (color.Palette, bool) {
 	case ColorSchemeBWGBRY:
 		return color.Palette{color.RGBA{0, 0, 0, 255}, color.RGBA{255, 255, 255, 255}, color.RGBA{255, 255, 0, 255}, color.RGBA{255, 0, 0, 255}, color.RGBA{0, 0, 255, 255}, color.RGBA{0, 255, 0, 255}}, true
 	case ColorSchemeGrayscale4:
-		return color.Palette{color.RGBA{0, 0, 0, 255}, color.RGBA{85, 85, 85, 255}, color.RGBA{170, 170, 170, 255}, color.RGBA{255, 255, 255, 255}}, true
+		return grayscalePalette(4), true
+	case ColorSchemeGrayscale8:
+		return grayscalePalette(8), true
+	case ColorSchemeGrayscale16:
+		return grayscalePalette(16), true
 	default:
 		return color.Palette{}, false
 	}
+}
+
+func grayscalePalette(levels int) color.Palette {
+	if levels < 2 {
+		return color.Palette{color.RGBA{0, 0, 0, 255}, color.RGBA{255, 255, 255, 255}}
+	}
+
+	palette := make(color.Palette, 0, levels)
+	for i := 0; i < levels; i++ {
+		v := uint8(math.Round(float64(i) * 255.0 / float64(levels-1)))
+		palette = append(palette, color.RGBA{v, v, v, 255})
+	}
+
+	return palette
 }
 
 func IsSupportedColorScheme(s ColorScheme) bool {
