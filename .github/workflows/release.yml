@@ -26,13 +26,16 @@ jobs:
           config-file: .github/release-please-config.json
           manifest-file: .github/release-please-manifest.json
 
-  release:
+  build-image:
     runs-on: ubuntu-latest
-    name: Release
+    name: Build and Push Container Image
     needs: [release-please]
     if: needs.release-please.outputs.release_created
     permissions:
       packages: write
+    defaults:
+      run:
+        working-directory: inkbridge
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -52,8 +55,6 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           platforms: linux/amd64,linux/arm64
-          context: inkbridge
-          file: inkbridge/Dockerfile
           push: true
           tags: ghcr.io/skaronator/inkbridge:${{ needs.release-please.outputs.version }}
           build-args:
