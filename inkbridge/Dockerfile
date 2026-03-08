@@ -1,4 +1,16 @@
-FROM python:3.14.3-trixie
+FROM golang:1.26.1-trixie AS builder
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+WORKDIR /src
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY cmd ./cmd
+COPY internal ./internal
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -o /out/inkbridge ./cmd/inkbridge
+
+FROM debian:bookworm-slim
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -12,10 +24,6 @@ RUN apt-get update \
 
 WORKDIR /app
 
-ENV VENV_PATH=/opt/venv
-ENV PATH="${VENV_PATH}/bin:${PATH}"
-ENV PYTHONUNBUFFERED=1
-
 LABEL \
   io.hass.version="1.0.0" \
   io.hass.type="addon" \
@@ -25,12 +33,6 @@ LABEL \
   org.opencontainers.image.source="https://github.com/Skaronator/InkBridge" \
   org.opencontainers.image.licenses="AGPL v3"
 
+COPY --from=builder /out/inkbridge /app/inkbridge
 
-COPY requirements.txt ./
-RUN python3 -m venv "${VENV_PATH}" \
-  && "${VENV_PATH}/bin/pip" install --no-cache-dir --upgrade pip \
-  && "${VENV_PATH}/bin/pip" install --no-cache-dir -r requirements.txt
-
-COPY src ./src
-
-CMD ["/opt/venv/bin/python", "-u", "src/main.py"]
+CMD ["/app/inkbridge"]
