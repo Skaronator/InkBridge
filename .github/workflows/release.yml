@@ -1,16 +1,13 @@
----
 name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
     name: Release Please
-    if: startsWith(github.ref, 'refs/heads/')
     permissions:
       contents: write
       pull-requests: write
@@ -30,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Push Container Image
     needs: [release-please]
-    if: needs.release-please.outputs.release_created
+    if: needs.release-please.outputs.release_created == 'true'
     permissions:
       packages: write
     defaults:
@@ -57,5 +54,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/skaronator/inkbridge:${{ needs.release-please.outputs.version }}
-          build-args:
-            - VERSION=${{ needs.release-please.outputs.version }}
+          build-args: |
+            VERSION=${{ needs.release-please.outputs.version }}
