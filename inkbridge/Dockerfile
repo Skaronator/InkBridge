@@ -10,7 +10,10 @@ COPY cmd ./cmd
 COPY internal ./internal
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$(go env GOARCH) go build -o /out/inkbridge ./cmd/inkbridge
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
+
+ARG VERSION
+ARG ARCH
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -25,9 +28,9 @@ RUN apt-get update \
 WORKDIR /app
 
 LABEL \
-  io.hass.version="1.0.0" \
+  io.hass.version="${VERSION}" \
   io.hass.type="addon" \
-  io.hass.arch="amd64" \
+  io.hass.arch="${ARCH}" \
   org.opencontainers.image.title="InkBridge" \
   org.opencontainers.image.description="Capture Home-Assistant dashboard screenshots and optimize them for eInk displays" \
   org.opencontainers.image.source="https://github.com/Skaronator/InkBridge" \
