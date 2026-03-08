@@ -16,16 +16,16 @@ options:
   global:
     host: "0.0.0.0"
     port: 4521
-    width: 1600
-    height: 1200
-    colorscheme: BWGBRY
-    dither_mode: FLOYD_STEINBERG
+    width: null
+    height: null
+    colorscheme: null
+    dither_mode: null
     zoom: 1
     cron_schedule: "* * * * *"
     render_delay: 1000
   home_assistant:
-    url: ""
-    token: ""
+    url: null
+    token: null
     language: "en"
   pages: []
 
