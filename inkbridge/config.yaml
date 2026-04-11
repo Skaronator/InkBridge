@@ -1,7 +1,9 @@
-name: "InkBridge"
-description: "A lightweight App to capture Home-Assistant dashboard screenshots and optimize them for eInk displays."
-version: "1.0.0"
-slug: "inkbridge"
+name: InkBridge
+description: >-
+  A lightweight App to capture Home-Assistant dashboard screenshots and optimize
+  them for eInk displays.
+version: 1.0.0
+slug: inkbridge
 url: https://github.com/Skaronator/InkBridge
 init: false
 arch:
@@ -11,33 +13,32 @@ ports:
   4521/tcp: 4521
 webui: http://[HOST]:[PORT:4521]
 watchdog: http://[HOST]:[PORT:4521]
-image: "ghcr.io/skaronator/inkbridge"
-
+image: ghcr.io/skaronator/inkbridge
 options:
   global:
-    host: "0.0.0.0"
+    host: 0.0.0.0
     port: 4521
     width: null
     height: null
     colorscheme: null
     dither_mode: null
     zoom: 1
-    cron_schedule: "* * * * *"
+    cron_schedule: '* * * * *'
     render_delay: 1000
   home_assistant:
     url: null
     token: null
-    language: "en"
+    language: en
   pages: []
-
 schema:
   global:
     host: str
-    port: "int(1,65535)"
-    width: "int(1,10000)"
-    height: "int(1,10000)"
+    port: int(1,65535)
+    width: int(1,10000)
+    height: int(1,10000)
     colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4|GRAYSCALE_8|GRAYSCALE_16)
-    dither_mode: list(NONE|BURKES|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|JARVIS_JUDICE_NINKE)
+    dither_mode: >-
+      list(NONE|BURKES|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|JARVIS_JUDICE_NINKE)
     zoom: float(0.1,10.0)
     cron_schedule: str
     render_delay: int(0,30000)
@@ -48,10 +49,11 @@ schema:
   pages:
     - slug: str
       url: url
-      width: "int?"
-      height: "int?"
+      width: int?
+      height: int?
       colorscheme: list(MONO|BWR|BWY|BWRY|BWGBRY|GRAYSCALE_4|GRAYSCALE_8|GRAYSCALE_16)?
-      dither_mode: list(NONE|BURKES|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|JARVIS_JUDICE_NINKE)?
+      dither_mode: >-
+        list(NONE|BURKES|FLOYD_STEINBERG|ATKINSON|STUCKI|SIERRA|JARVIS_JUDICE_NINKE)?
       cron_schedule: str?
       zoom: float(0.1,10.0)?
       render_delay: int(0,30000)?
