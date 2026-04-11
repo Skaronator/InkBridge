@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Skaronator/InkBridge/compare/1.0.0...1.0.1) (2026-04-11)
+
+
+### Bug Fixes
+
+* **ci:** release build not working ([a37c322](https://github.com/Skaronator/InkBridge/commit/a37c3222c1c8def6ff68772c74808b9d55acd247))
+
 ## 1.0.0 (2026-04-11)
 
 
