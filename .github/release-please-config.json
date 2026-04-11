@@ -8,6 +8,7 @@
   "packages": {
     ".": {
       "release-type": "go",
+      "changelog-path": "inkbridge/CHANGELOG.md",
       "extra-files": [
         {
           "type": "yaml",
