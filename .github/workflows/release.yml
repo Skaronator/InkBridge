@@ -51,6 +51,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v7
         with:
+          context: ./inkbridge
+          file: ./inkbridge/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ghcr.io/skaronator/inkbridge:${{ needs.release-please.outputs.version }}
