@@ -1,6 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["mergeConfidence:all-badges", "config:recommended", ":disableRateLimiting"],
+  "extends": [
+    "mergeConfidence:all-badges",
+    "config:recommended",
+    ":disableRateLimiting",
+    "customManagers:dockerfileVersions"
+  ],
   "timezone": "Europe/Berlin",
   "pinDigests": true,
   "packageRules": [

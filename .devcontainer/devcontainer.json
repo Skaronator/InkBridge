@@ -1,6 +1,9 @@
 {
-  "name": "Example devcontainer for apps repositories",
-  "image": "ghcr.io/home-assistant/devcontainer:4-apps",
+  "name": "InkBridge Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "overrideCommand": false,
   "remoteUser": "vscode",
   "appPort": ["7123:8123", "7357:4357", "4521:4521"],
