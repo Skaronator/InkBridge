@@ -21,6 +21,9 @@ configuration:
       dither_mode:
         name: Default Dither Mode
         description: Default dithering algorithm used to process captured screenshots.
+      zoom:
+        name: Default Zoom Level
+        description: Default browser zoom level applied before capturing page screenshots.
       cron_schedule:
         name: Refresh Schedule
         description: Default cron expression used to regenerate pages that do not define a page-level refresh schedule.
@@ -64,6 +67,9 @@ configuration:
       dither_mode:
         name: Page Dither Mode Override
         description: Optional dithering algorithm override for this page.
+      zoom:
+        name: Page Zoom Level Override
+        description: Optional browser zoom level override applied before capturing this page.
       cron_schedule:
         name: Page Refresh Schedule Override
         description: Optional cron expression override for this page. If omitted, the global refresh schedule is used.
