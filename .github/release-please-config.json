@@ -12,7 +12,7 @@
         {
           "type": "yaml",
           "path": "inkbridge/config.yaml",
-          "jsonpath": "$.metadata.version"
+          "jsonpath": "$.version"
         }
       ]
     }
