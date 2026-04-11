@@ -1,5 +1,37 @@
 # Changelog
 
+## [1.1.0](https://github.com/Skaronator/InkBridge/compare/1.0.1...1.1.0) (2026-04-11)
+
+
+### Features
+
+* include golang in devcontainer image ([16d2b79](https://github.com/Skaronator/InkBridge/commit/16d2b79ffb6d8f55f4117dee1aed9a8b35aafe04))
+
+
+### Bug Fixes
+
+* **release:** always show all changes in changelog ([ead7c1f](https://github.com/Skaronator/InkBridge/commit/ead7c1fa8ef148ba7a459c18c491d3e1ebc72850))
+
+
+### Documentation
+
+* add readme within inkbridge project ([b58f1fa](https://github.com/Skaronator/InkBridge/commit/b58f1fa93cce4a666157f4a142ef13f6cd4b9854))
+* improve readme ([22ac84d](https://github.com/Skaronator/InkBridge/commit/22ac84d4c798e1816afb42472ff1cc5831d2d99d))
+
+
+### Chores
+
+* **deps:** update actions/setup-go action to v6.4.0 ([80af060](https://github.com/Skaronator/InkBridge/commit/80af0609206f74762ee7006179490c1bdd83de33))
+* **deps:** update actions/setup-go action to v6.4.0 ([5a3840c](https://github.com/Skaronator/InkBridge/commit/5a3840c83e325fc4de581364e6d4c911ab0f1967))
+* **deps:** update dependency golangci/golangci-lint to v2.11.4 ([2bdcc9e](https://github.com/Skaronator/InkBridge/commit/2bdcc9e00a42c4a03455578928ab86a86c042921))
+* **deps:** update dependency golangci/golangci-lint to v2.11.4 ([e327999](https://github.com/Skaronator/InkBridge/commit/e327999cdf86d1223ee52c911c9080cff8471e3e))
+* **deps:** update docker/login-action action to v4.1.0 ([08720fb](https://github.com/Skaronator/InkBridge/commit/08720fb3d195d047152420ba0ab997e342f080f7))
+* **deps:** update docker/login-action action to v4.1.0 ([a7e3805](https://github.com/Skaronator/InkBridge/commit/a7e3805c9512a76a72e2a02c2b71d1eec2729d85))
+* **deps:** update golang docker tag to v1.26.2 ([1ac912c](https://github.com/Skaronator/InkBridge/commit/1ac912cc752d4f1f600c2554c45f5c17a64acc1a))
+* **deps:** update golang docker tag to v1.26.2 ([61d4f9a](https://github.com/Skaronator/InkBridge/commit/61d4f9a4331a3ab16527363d8f19bc35ee8d047f))
+* **deps:** update golang docker tag to v1.26.2 ([a54aac1](https://github.com/Skaronator/InkBridge/commit/a54aac168e29277778f1b3120f3dc2d49a49cc70))
+* **deps:** update golang docker tag to v1.26.2 ([8a86065](https://github.com/Skaronator/InkBridge/commit/8a86065f8ff5fa3bf0d325f46cfce0cbc83740d7))
+
 ## [1.0.1](https://github.com/Skaronator/InkBridge/compare/1.0.0...1.0.1) (2026-04-11)
 
 
