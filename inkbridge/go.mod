@@ -1,6 +1,6 @@
 module inkbridge
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/chromedp/cdproto v0.0.0-20250319231242-a755498943c8
