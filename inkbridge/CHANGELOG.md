@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.1](https://github.com/Skaronator/InkBridge/compare/1.1.0...1.1.1) (2026-04-12)
+
+
+### Bug Fixes
+
+* **renovate:** unable to pin dependencies ([18e2819](https://github.com/Skaronator/InkBridge/commit/18e28190f37c357ee22c8a11fc53d6ff7d1ef388))
+
+
+### Chores
+
+* **deps:** pin dependencies ([8f42225](https://github.com/Skaronator/InkBridge/commit/8f422250e19018b68685961180ffb42cc47a81a8))
+* **deps:** pin dependencies ([ff168dd](https://github.com/Skaronator/InkBridge/commit/ff168dde9583c3e2bbf697a4283a62e48f1c5f5f))
+* **deps:** update golang:1.26.2-trixie docker digest to c0074c7 ([c77aab2](https://github.com/Skaronator/InkBridge/commit/c77aab23f9c7c5f680b1f30449a9e6ee16ade852))
+* **deps:** update golang:1.26.2-trixie docker digest to c0074c7 ([1a53c61](https://github.com/Skaronator/InkBridge/commit/1a53c61e738a503b3c68a06930dd9e993fcc32f3))
+* **renovate:** only update digest once a month ([1b95227](https://github.com/Skaronator/InkBridge/commit/1b95227e3fba4c76a4dba3733ccd261eef09b30d))
+
 ## [1.1.0](https://github.com/Skaronator/InkBridge/compare/1.0.1...1.1.0) (2026-04-11)
 
 
