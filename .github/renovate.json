@@ -10,7 +10,12 @@
   "pinDigests": true,
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": ["minor", "patch", "pin"],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["digest"],
+      "schedule": ["first monday of the month"],
       "automerge": true
     }
   ]
