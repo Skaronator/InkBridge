@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.1.1](https://github.com/Skaronator/InkBridge/compare/1.1.0...1.1.1) (2026-08-28)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/chromedp/chromedp to v0.16.0 ([#21](https://github.com/Skaronator/InkBridge/issues/21)) ([0725d0c](https://github.com/Skaronator/InkBridge/commit/0725d0c6d906281dacfb0629d078121eebb943d0))
+* **deps:** update module github.com/go-playground/validator/v10 to v10.30.3 ([#15](https://github.com/Skaronator/InkBridge/issues/15)) ([829e58a](https://github.com/Skaronator/InkBridge/commit/829e58a263e063076cc050d00d75eb211a210cc6))
+* **deps:** update module golang.org/x/image to v0.45.0 ([40f1408](https://github.com/Skaronator/InkBridge/commit/40f14080da0b0ba6dbb4ee941e4196fb4dcec14c))
+* **deps:** update module golang.org/x/image to v0.45.0 ([3a29763](https://github.com/Skaronator/InkBridge/commit/3a29763cef33e6ca1b3861959411d575d81639dd))
+* renovate.json ([e46ecbe](https://github.com/Skaronator/InkBridge/commit/e46ecbe7575213653bda4a767f93dc5047532152))
+* **renovate:** unable to pin dependencies ([18e2819](https://github.com/Skaronator/InkBridge/commit/18e28190f37c357ee22c8a11fc53d6ff7d1ef388))
+
+
+### Chores
+
+* **deps:** pin dependencies ([8f42225](https://github.com/Skaronator/InkBridge/commit/8f422250e19018b68685961180ffb42cc47a81a8))
+* **deps:** pin dependencies ([ff168dd](https://github.com/Skaronator/InkBridge/commit/ff168dde9583c3e2bbf697a4283a62e48f1c5f5f))
+* **deps:** update actions/checkout action to v7 ([22632ba](https://github.com/Skaronator/InkBridge/commit/22632ba70db7e860d5652457c12136016fac3c74))
+* **deps:** update actions/checkout action to v7 ([7eadafb](https://github.com/Skaronator/InkBridge/commit/7eadafbb4e0ad3c563d1de516e9b64176a1bf83a))
+* **deps:** update actions/setup-go action to v7 ([45c6f4d](https://github.com/Skaronator/InkBridge/commit/45c6f4d732e0c224a1202feb8b2b24183f5a1650))
+* **deps:** update actions/setup-go action to v7 ([0138583](https://github.com/Skaronator/InkBridge/commit/01385835e45ec7091ec9cc7b85a02c1dcfd05efc))
+* **deps:** update docker/login-action action to v4.6.0 ([#18](https://github.com/Skaronator/InkBridge/issues/18)) ([6954028](https://github.com/Skaronator/InkBridge/commit/695402818f762f517fd103018ebd059e075fcfc8))
+* **deps:** update docker/setup-buildx-action action to v4.3.0 ([#19](https://github.com/Skaronator/InkBridge/issues/19)) ([e299a6e](https://github.com/Skaronator/InkBridge/commit/e299a6e1f340715e84ce35bcff8e16e70c29c415))
+* **deps:** update ghcr.io/home-assistant/devcontainer docker tag to v6 ([7c7f319](https://github.com/Skaronator/InkBridge/commit/7c7f3197a8286b0533fe34de6af287550c7ec691))
+* **deps:** update ghcr.io/home-assistant/devcontainer docker tag to v6 ([72c1a0f](https://github.com/Skaronator/InkBridge/commit/72c1a0fbbed1d32d822e57b4ceff123f97300dcd))
+* **deps:** update golang docker tag to v1.27.0 ([3bc1708](https://github.com/Skaronator/InkBridge/commit/3bc1708005d943e516469f93b46d48cf2f5a5b13))
+* **deps:** update golang docker tag to v1.27.0 ([b6c29d2](https://github.com/Skaronator/InkBridge/commit/b6c29d248e56aa5d654c8478c4bb1ca67205d70e))
+* **deps:** update golang:1.26.2-trixie docker digest to c0074c7 ([c77aab2](https://github.com/Skaronator/InkBridge/commit/c77aab23f9c7c5f680b1f30449a9e6ee16ade852))
+* **deps:** update golang:1.26.2-trixie docker digest to c0074c7 ([1a53c61](https://github.com/Skaronator/InkBridge/commit/1a53c61e738a503b3c68a06930dd9e993fcc32f3))
+* **deps:** update googleapis/release-please-action action to v4.4.1 ([#14](https://github.com/Skaronator/InkBridge/issues/14)) ([ec7d5ba](https://github.com/Skaronator/InkBridge/commit/ec7d5bafecc8e5f0bf81ec4295caffc107349885))
+* **deps:** update googleapis/release-please-action action to v5 ([92fe6cd](https://github.com/Skaronator/InkBridge/commit/92fe6cd7f218068ca1d4ebd7c96e90a8484929eb))
+* **deps:** update googleapis/release-please-action action to v5 ([5012a43](https://github.com/Skaronator/InkBridge/commit/5012a4351bc8537b21080519458e9192e76ccebe))
+* **renovate:** only update digest once a month ([1b95227](https://github.com/Skaronator/InkBridge/commit/1b95227e3fba4c76a4dba3733ccd261eef09b30d))
+
 ## [1.1.0](https://github.com/Skaronator/InkBridge/compare/1.0.1...1.1.0) (2026-04-11)
 
 
