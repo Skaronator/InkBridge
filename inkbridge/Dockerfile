@@ -1,4 +1,4 @@
-FROM golang:1.27.0-trixie@sha256:ae28539d2ef595b9a2930dd7f031d9592376829dc0eae7cb869559f7d5812c3a AS builder
+FROM golang:1.27.1-trixie@sha256:137ca8442e368f5f5bb4d4f84d8cc1f6c2d898edf8a380459eb407f89d149b0d AS builder
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR /src
