@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.2](https://github.com/Skaronator/InkBridge/compare/1.1.1...1.1.2) (2026-09-04)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/go-playground/validator/v10 to v10.30.4 ([#29](https://github.com/Skaronator/InkBridge/issues/29)) ([640f26d](https://github.com/Skaronator/InkBridge/commit/640f26d71d00733179bac45c16cee139d767bacb))
+
+
+### Chores
+
+* **deps:** update golang docker tag to v1.27.1 ([#27](https://github.com/Skaronator/InkBridge/issues/27)) ([f5638fa](https://github.com/Skaronator/InkBridge/commit/f5638fa6ecec6ff395e05f2190c3c855fc64d130))
+
 ## [1.1.1](https://github.com/Skaronator/InkBridge/compare/1.1.0...1.1.1) (2026-08-28)
 
 
