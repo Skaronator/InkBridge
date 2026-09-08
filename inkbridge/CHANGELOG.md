@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.2](https://github.com/Skaronator/InkBridge/compare/1.1.1...1.1.2) (2026-09-08)
+
+
+### Bug Fixes
+
+* **deps:** update github.com/chromedp/cdproto digest to e85f50d ([#35](https://github.com/Skaronator/InkBridge/issues/35)) ([a70f63a](https://github.com/Skaronator/InkBridge/commit/a70f63a8bdd3af630e339824ccb30c12c4d567b3))
+* **deps:** update module github.com/go-playground/validator/v10 to v10.30.4 ([#29](https://github.com/Skaronator/InkBridge/issues/29)) ([640f26d](https://github.com/Skaronator/InkBridge/commit/640f26d71d00733179bac45c16cee139d767bacb))
+* **deps:** update module golang.org/x/image to v0.46.0 ([#36](https://github.com/Skaronator/InkBridge/issues/36)) ([f919691](https://github.com/Skaronator/InkBridge/commit/f9196913d80c4336e2cb354c9f9056ee6eb4873e))
+
+
+### Chores
+
+* **deps:** update debian:trixie-slim docker digest to d7e1218 ([#30](https://github.com/Skaronator/InkBridge/issues/30)) ([3c34f1a](https://github.com/Skaronator/InkBridge/commit/3c34f1a3a9f7670e268acdcd98a76fc5ca1ba358))
+* **deps:** update docker/build-push-action digest to 53b7df9 ([#31](https://github.com/Skaronator/InkBridge/issues/31)) ([364c7f3](https://github.com/Skaronator/InkBridge/commit/364c7f3ddf4351e9e6cd7021abfde057cb94416d))
+* **deps:** update ghcr.io/home-assistant/devcontainer:6-apps docker digest to 91cfc04 ([#32](https://github.com/Skaronator/InkBridge/issues/32)) ([b08c58b](https://github.com/Skaronator/InkBridge/commit/b08c58b7e5888516c1ac15f7f0513e6bfd719282))
+* **deps:** update golang docker tag to v1.27.1 ([#27](https://github.com/Skaronator/InkBridge/issues/27)) ([f5638fa](https://github.com/Skaronator/InkBridge/commit/f5638fa6ecec6ff395e05f2190c3c855fc64d130))
+* **deps:** update golang:1.27.1-trixie docker digest to 9baa6b4 ([#33](https://github.com/Skaronator/InkBridge/issues/33)) ([a58b34a](https://github.com/Skaronator/InkBridge/commit/a58b34ae3e5c6b01a326bc1bf9942619a2066778))
+* **deps:** update golangci/golangci-lint-action digest to ba0d7d2 ([#34](https://github.com/Skaronator/InkBridge/issues/34)) ([0fd6f65](https://github.com/Skaronator/InkBridge/commit/0fd6f65f86cb421847fdf65a6d1573eaec01f43f))
+
 ## [1.1.1](https://github.com/Skaronator/InkBridge/compare/1.1.0...1.1.1) (2026-08-28)
 
 
