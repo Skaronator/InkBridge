@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.3](https://github.com/Skaronator/InkBridge/compare/1.1.2...1.1.3) (2026-10-10)
+
+
+### Bug Fixes
+
+* **deps:** update module golang.org/x/image to v0.47.0 ([#48](https://github.com/Skaronator/InkBridge/issues/48)) ([b30d711](https://github.com/Skaronator/InkBridge/commit/b30d711b587f43547ed6ac61cae2fba0f9ab58d6))
+
+
+### Chores
+
+* **deps:** update debian:trixie-slim docker digest to a99cfc5 ([#42](https://github.com/Skaronator/InkBridge/issues/42)) ([89877ad](https://github.com/Skaronator/InkBridge/commit/89877ade54a3aff43425477ed463b4d2c1ad6a7d))
+* **deps:** update docker/build-push-action digest to c3c9e26 ([#43](https://github.com/Skaronator/InkBridge/issues/43)) ([52454b5](https://github.com/Skaronator/InkBridge/commit/52454b542735c64fd11601c52acd90122afb326b))
+* **deps:** update ghcr.io/home-assistant/devcontainer:6-apps docker digest to 4e2d6ef ([#44](https://github.com/Skaronator/InkBridge/issues/44)) ([32a6a62](https://github.com/Skaronator/InkBridge/commit/32a6a626307f07bbd5e4ad92fd410855ac90ef60))
+* **deps:** update golang docker tag to v1.27.2 ([#47](https://github.com/Skaronator/InkBridge/issues/47)) ([0cc0928](https://github.com/Skaronator/InkBridge/commit/0cc0928f8e234531a7582a39e5e9b787ce533015))
+* **deps:** update golang:1.27.1-trixie docker digest to 3b77fc6 ([#45](https://github.com/Skaronator/InkBridge/issues/45)) ([51ba749](https://github.com/Skaronator/InkBridge/commit/51ba7497ee4c18e5ff88dfb5e4d95f932b70c4be))
+
 ## [1.1.2](https://github.com/Skaronator/InkBridge/compare/1.1.1...1.1.2) (2026-09-20)
 
 
