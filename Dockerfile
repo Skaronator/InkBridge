@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/devcontainer:6-apps@sha256:4e2d6efd9ac472c27f5cc522672ea9bbfdf35a897266ff4b1ac1f21ee611a4a9
+FROM ghcr.io/home-assistant/devcontainer:6-apps@sha256:9c08de75a4d91938dab76d44846a2d297d4ce92bf80024ff15a4f6dff766855e
 
 # renovate: datasource=docker depName=golang versioning=semver
 ARG GO_VERSION=1.27.3
